@@ -3,6 +3,7 @@ framework:
         # The paths to make available to the asset mapper.
         paths:
             - assets/
+            - assets/vendor/select2  # <-- Ajoute cette ligne si nécessaire
         missing_import_mode: strict
 
 when@prod:

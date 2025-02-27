@@ -12,6 +12,7 @@
         "doctrine/doctrine-bundle": "^2.13",
         "doctrine/doctrine-migrations-bundle": "^3.4",
         "doctrine/orm": "^3.3",
+        "fakerphp/faker": "^1.24",
         "phpdocumentor/reflection-docblock": "^5.6",
         "phpstan/phpdoc-parser": "^2.1",
         "symfony/asset": "6.4.*",
@@ -43,9 +44,13 @@
         "symfony/validator": "6.4.*",
         "symfony/web-link": "6.4.*",
         "symfony/yaml": "6.4.*",
+        "symfonycasts/reset-password-bundle": "^1.23",
+        "symfonycasts/sass-bundle": "^0.8.2",
+        "symfonycasts/verify-email-bundle": "^1.17",
         "symfonycorp/platformsh-meta": "^1.0",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "vich/uploader-bundle": "^2.5"
     },
     "config": {
         "allow-plugins": {
@@ -98,6 +103,7 @@
         }
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^4.0",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "6.4.*",
         "symfony/css-selector": "6.4.*",

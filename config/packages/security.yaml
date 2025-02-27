@@ -4,14 +4,31 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        users_in_memory: { memory: null }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\Users
+                property: username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: users_in_memory
+            provider: app_user_provider
+            custom_authenticator: App\Security\UsersAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
+
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800
+                path: /
+                # by default, the feature is enabled by checking a checkbox in the
+                # login form, uncomment the following line to always enable it.
+                always_remember_me: false
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -24,6 +41,26 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+
+
+    role_hierarchy:
+        ROLE_ELEVES: ROLE_USER
+        ROLE_PARENT: ROLE_ELEVES
+        ROLE_SURVEILLANT: ROLE_PARENT
+        ROLE_EDUCATEUR: ROLE_SURVEILLANT
+        ROLE_SECRETAIRE: ROLE_SURVEILLANT
+        ROLE_CAISSE: ROLE_SURVEILLANT
+        ROLE_COMPTABLE: ROLE_CAISSE
+        ROLE_FINANCE: ROLE_COMPTABLE
+        ROLE_DIRECTION: [ROLE_SECRETAIRE, ROLE_CAISSE, ROLE_EDUCATEUR]
+        ROLE_ADMIN: [ROLE_DIRECTION, ROLE_COMPTABLE]
+        ROLE_DCAP: ROLE_EDUCATEUR
+        ROLE_ACADEMIE: ROLE_DCAP
+        ROLE_DIREG: ROLE_ACADEMIE
+        ROLE_DIRNAT: ROLE_DIREG
+        ROLE_NATION: ROLE_DIRNAT
+        ROLE_SUPERADMIN: [ROLE_ADMIN, ROLE_FINANCE, ROLE_DCAP, ROLE_ACADEMIE, ROLE_DIREG, ROLE_DIRNAT, ROLE_NATION]
+
 
 when@test:
     security:
