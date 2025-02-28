@@ -1,45 +1,34 @@
+console.log('Début de app.js ✅');
 
-import $ from 'jquery';
-// things on "window" become global variables
-window.$ = window.jQuery = $;
+// 1. Importer jQuery en premier
+//import jQuery from 'jquery';
+//window.jQuery = jQuery;
+//window.$ = jQuery;
 
-import select2 from 'select2';
-select2($);
+//console.log('jQuery:', typeof $);  // Vérifier que jQuery est correctement chargé
 
-import 'select2';
-import 'select2/dist/css/select2.min.css';
-import '@popperjs/core';
+// 2. Importer Select2 après jQuery
+//import select2 from 'select2'; // Importer Select2 directement
+//import 'select2/dist/css/select2.min.css'; // Importer le CSS de Select2
+
+console.log('Select2:', typeof $.fn.select2); // Vérifier que Select2 est bien attaché à jQuery
+
+// 3. Importer Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-import 'bootstrap' //from this loads popperjs/core
-
-import './bootstrap.js';
-
+import 'bootstrap';
+import './bootstrap.js';  // Si vous utilisez un autre fichier bootstrap.js
+import '@popperjs/core';
 import { Alert } from 'bootstrap';
 import * as bootstrap from 'bootstrap'; // Importation correcte de Bootstrap
 
-
-$(document).ready(function () {
-    $('#jquery-button').on('click', function () {
-        $('#jquery-result').text('Le bouton a été cliqué, jQuery est bien actif !');
-    });
-});
-
-/*
- * Welcome to your app's main JavaScript file!
- *
- * We recommend including the built version of this JavaScript file
- * (and its CSS file) in your base layout (base.html.twig).
- */
- // loads the jquery package from node_modules
-
-// Importez vos fichiers JavaScript
+// 4. Importer d'autres fichiers JavaScript
 import './controllers/hello_controller.js';
-// any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
+import './scripts/anneeScolaires.js';
 
+
+// 5. Initialiser Select2
+$(document).ready(function() {
+    $('.select2-profession').select2();
+});
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
-
-
-
-

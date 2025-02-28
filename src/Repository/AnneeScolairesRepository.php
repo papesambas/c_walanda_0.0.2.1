@@ -16,6 +16,24 @@ class AnneeScolairesRepository extends ServiceEntityRepository
         parent::__construct($registry, AnneeScolaires::class);
     }
 
+    /**
+     * Récupère tous les enregistrements de l'entité, avec un ordre optionnel.
+     *
+     * @param array|null $orderBy Un tableau spécifiant l'ordre des résultats.
+     *                            Exemple : ['nom' => 'ASC', 'date' => 'DESC']
+     * @return array Les enregistrements trouvés.
+     * @throws \InvalidArgumentException Si une colonne invalide est spécifiée dans $orderBy.
+     */
+    public function findAll(array $orderBy = null): array
+    {
+        try {
+            return $this->findBy([], $orderBy);
+        } catch (\Exception $e) {
+            // Log l'erreur ou relancez une exception personnalisée
+            throw new \InvalidArgumentException('Une erreur s\'est produite lors du tri des résultats : ' . $e->getMessage());
+        }
+    }
+
     //    /**
     //     * @return AnneeScolaires[] Returns an array of AnneeScolaires objects
     //     */

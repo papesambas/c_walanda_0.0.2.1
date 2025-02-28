@@ -37,11 +37,11 @@ class Meres
 
     #[ORM\OneToOne(inversedBy: 'meres', cascade: ['persist', 'remove'], fetch: "LAZY")]
     #[ORM\JoinColumn(nullable: false, referencedColumnName: 'id',)]
-    private ?telephones1 $telephone1 = null;
+    private ?Telephones1 $telephone1 = null;
 
     #[ORM\OneToOne(inversedBy: 'meres', cascade: ['persist', 'remove'], fetch: "LAZY")]
     #[ORM\JoinColumn(nullable: true, referencedColumnName: 'id',)]
-    private ?telephones2 $telephone2 = null;
+    private ?Telephones2 $telephone2 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $fullname = null;
@@ -106,24 +106,24 @@ class Meres
         return $this;
     }
 
-    public function getTelephone1(): ?telephones1
+    public function getTelephone1(): ?Telephones1
     {
         return $this->telephone1;
     }
 
-    public function setTelephone1(telephones1 $telephone1): static
+    public function setTelephone1(Telephones1 $telephone1): static
     {
         $this->telephone1 = $telephone1;
 
         return $this;
     }
 
-    public function getTelephone2(): ?telephones2
+    public function getTelephone2(): ?Telephones2
     {
         return $this->telephone2;
     }
 
-    public function setTelephone2(?telephones2 $telephone2): static
+    public function setTelephone2(?Telephones2 $telephone2): static
     {
         $this->telephone2 = $telephone2;
 

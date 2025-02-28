@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+<div class="form-group">
+    {{ form_label(form.anneeDebut) }}
+    {{ form_widget(form.anneeDebut, { 'attr': {'class': 'form-control', 'id': 'anneeDebut'} }) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.anneeFin) }}
+    {{ form_widget(form.anneeFin, { 'attr': {'class': 'form-control', 'id': 'anneeFin', 'readonly': 'readonly'} }) }}
+</div>
+
+<button type="button" id="creerAnneePrecedente" class="btn btn-secondary">
+    Créer une année précédente
+</button>
+
+<button type="submit" class="btn btn-primary">{{ button_label|default('Créer') }}</button>
+{{ form_end(form) }}
+

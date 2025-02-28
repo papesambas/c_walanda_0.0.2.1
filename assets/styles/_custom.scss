@@ -2,10 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
 
+
+
 /* Styles généraux */
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #cbf0f3;
+    background-color: #e0e5e6;
     color: #333;
     margin: 0;
     padding: 0;
@@ -66,7 +68,7 @@ form button:hover {
     background: #0056b3;
 }
 
-/* Tableaux */
+/* Tables - Responsive, compact and hover effect */
 .table-responsive {
     max-width: 100%;
     overflow-x: auto;
@@ -87,13 +89,20 @@ form button:hover {
 }
 
 .table th {
-    background-color: #007bff;
+    background-color: #475e77;
     color: white;
 }
 
+/* Table compacte avec la classe .table-sm */
 .table-sm td,
 .table-sm th {
     padding: 4px;
+}
+
+/* Effet de survol pour les lignes de la table */
+.table tbody tr:hover {
+    background-color: #c5c1c1; /* Couleur de fond au survol */
+    cursor: pointer;
 }
 
 /* Messages de statut */
@@ -140,5 +149,73 @@ form button:hover {
 }
 
 .pagination li a:hover {
-    background-color: #0056b3;
+    background-color: #5c85b1;
+}
+
+
+/* Appliquer un style de base aux placeholders */
+.select2-placeholder-custom {
+    height: 33px; /* Ajustez la hauteur selon vos besoins */
+    width: 100%; /* Assurez-vous que le width couvre tout le conteneur */
+    display: flex; /* Utilisez Flexbox pour centrer le contenu */
+    align-items: center; /* Centre le contenu verticalement */
+    font-family: sans-serif, Arial;
+    font-size: 12px;
+    background-color: orange; /* Couleur de fond pour le placeholder */
+    color: #0f0e0e; /* Couleur du texte du placeholder */
+    box-sizing: border-box; /* Inclure padding et border dans la hauteur/largeur */
+}
+
+/* Assurez-vous que le conteneur Select2 a le bon style */
+.select2-container--default .select2-selection--single {
+    height: 33px; /* Ajustez la hauteur selon vos besoins */
+    width: 100%; /* Assurez-vous que le width couvre tout le conteneur */
+    display: flex; /* Utilisez Flexbox pour centrer le contenu */
+    align-items: center; /* Centre le contenu verticalement */
+    font-family: sans-serif, Arial;
+    font-size: 12px;
+    background-color: rgb(243, 226, 193); /* Couleur de fond pour le placeholder */
+    color: #0f0e0e; /* Couleur du texte du placeholder */
+    box-sizing: border-box; /* Inclure padding et border dans la hauteur/largeur */
+}
+
+/* Style pour l'élément de sélection lorsque le placeholder est affiché */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    height: 100%; /* S'assurer que le contenu occupe toute la hauteur du conteneur */
+    display: flex; /* Utilisez Flexbox pour centrer le contenu */
+    align-items: center; /* Centre le contenu verticalement */
+    padding: 0 10px; /* Ajustez le padding si nécessaire */
+    box-sizing: border-box; /* Inclure padding dans la hauteur/largeur totale */
+}
+
+.select2-placeholder-custom2 {
+    height: 33px; /* Ajustez la hauteur selon vos besoins */
+    width: 100%; /* Assurez-vous que le width couvre tout le conteneur */
+    display: flex; /* Utilisez Flexbox pour centrer le contenu */
+    align-items: center; /* Centre le contenu verticalement */
+    font-family: sans-serif, Arial;
+    font-size: 12px;
+    background-color: rgb(240, 236, 229); /* Couleur de fond pour le placeholder */
+    color: #000000; /* Couleur du texte du placeholder */
+    box-sizing: border-box; /* Inclure padding et border dans la hauteur/largeur */
+}
+
+.select2-data-custom {
+    color: #000000; /* Couleur du texte des données */
+
+}
+
+.select2-selection__rendered {
+    color: #000000; /* Couleur du texte des données dans le champ sélectionné */
+    background-color: white; /* Couleur de fond des données dans le champ sélectionné */
+    font-family: sans-serif, Arial;
+    font-size: 12px;
+}
+
+/* Pour les éléments de la liste déroulante */
+.select2-results__option {
+    color: #000000; /* Couleur du texte des éléments de la liste */
+    background-color: #ffffff; /* Couleur de fond des éléments de la liste */
+    font-family: sans-serif, Arial;
+    font-size: 12px;
 }

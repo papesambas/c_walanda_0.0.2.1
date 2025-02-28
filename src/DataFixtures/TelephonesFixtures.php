@@ -4,9 +4,7 @@ namespace App\DataFixtures;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Faker;
-use App\Entity\Telephones;
 use App\Entity\Telephones1;
-use App\Entity\Telephones2;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 

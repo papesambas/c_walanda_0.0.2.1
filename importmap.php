@@ -44,11 +44,4 @@ return [
     'jquery' => [
         'version' => '3.7.1',
     ],
-    'select2' => [
-        'version' => '4.1.0-rc.0',
-    ],
-    'select2/dist/css/select2.min.css' => [
-        'version' => '4.1.0-rc.0',
-        'type' => 'css',
-    ],
 ];
