@@ -114,10 +114,10 @@ class MeresType extends AbstractType
             'placeholder' => 'Sélectionnez le # de téléphone de la mère',
             'choice_label' => 'numero',
             'query_builder' => fn(EntityRepository $er) => $er->createQueryBuilder('t')
-                ->where('t.designation IS NOT NULL')
-                ->andWhere('t.designation != :empty')
+                ->where('t.numero IS NOT NULL')
+                ->andWhere('t.numero != :empty')
                 ->setParameter('empty', '')
-                ->orderBy('t.designation', 'ASC'),
+                ->orderBy('t.numero', 'ASC'),
             'attr' => [
                 'class' => 'select-telephone',
                 'data-autocomplete' => 'true',
@@ -140,10 +140,10 @@ class MeresType extends AbstractType
             'placeholder' => 'Sélectionnez le # de téléphone de la mère',
             'choice_label' => 'numero',
             'query_builder' => fn(EntityRepository $er) => $er->createQueryBuilder('t')
-                ->where('t.designation IS NOT NULL')
-                ->andWhere('t.designation != :empty')
+                ->where('t.numero IS NOT NULL')
+                ->andWhere('t.numero != :empty')
                 ->setParameter('empty', '')
-                ->orderBy('t.designation', 'ASC'),
+                ->orderBy('t.numero', 'ASC'),
             'attr' => [
                 'class' => 'select-telephone',
                 'data-autocomplete' => 'true',

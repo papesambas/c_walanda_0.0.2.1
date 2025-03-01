@@ -16,29 +16,9 @@ class ParentsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('slug')
-            ->add('meres', EntityType::class, [
-                'class' => Meres::class,
-                'choice_label' => 'id',
-            ])
-            ->add('pere', EntityType::class, [
-                'class' => Peres::class,
-                'choice_label' => 'id',
-            ])
-            ->add('createdBy', EntityType::class, [
-                'class' => Users::class,
-                'choice_label' => 'id',
-            ])
-            ->add('updatedBy', EntityType::class, [
-                'class' => Users::class,
-                'choice_label' => 'id',
-            ])
+            ->add('pere', PeresType::class)
+            ->add('meres', MeresType::class)
+
         ;
     }
 

@@ -79,6 +79,7 @@ class MeresRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('m')
             ->select('m', 't1', 't2', 'n') // Sélection explicite pour éviter les proxys
             ->leftJoin('m.telephone1', 't1') // Jointure avec téléphone
+            ->leftJoin('m.telephone2', 't2') // Jointure avec téléphone
             ->leftJoin('m.nina', 'n'); // Jointure avec nina
 
         // Recherche par téléphone

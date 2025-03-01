@@ -1,15 +1,5 @@
 console.log('Début de app.js ✅');
 
-// 1. Importer jQuery en premier
-//import jQuery from 'jquery';
-//window.jQuery = jQuery;
-//window.$ = jQuery;
-
-//console.log('jQuery:', typeof $);  // Vérifier que jQuery est correctement chargé
-
-// 2. Importer Select2 après jQuery
-//import select2 from 'select2'; // Importer Select2 directement
-//import 'select2/dist/css/select2.min.css'; // Importer le CSS de Select2
 
 console.log('Select2:', typeof $.fn.select2); // Vérifier que Select2 est bien attaché à jQuery
 
@@ -25,6 +15,7 @@ import * as bootstrap from 'bootstrap'; // Importation correcte de Bootstrap
 import './controllers/hello_controller.js';
 import './styles/app.scss';
 import './scripts/anneeScolaires.js';
+import './scripts/inscription.js';
 
 
 // 5. Initialiser Select2

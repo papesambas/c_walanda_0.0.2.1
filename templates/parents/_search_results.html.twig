@@ -1,8 +1,4 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Liste des Parents{% endblock %}
-
-{% block body %}
+{% for parent in parents %}
 <div class="container-fluid mt-5">
     <div class="d-flex justify-content-center">
         <h3 class="mb-4 fw-bold fst-italic">Liste des Parents</h3>
@@ -56,21 +52,11 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Bouton Ajouter -->
-    <div class="text-end mt-4">
-        <a href="{{ path('app_parents_new') }}" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> Ajouter un nouveau parent
-        </a>
-    </div>
-</div>
-<div id="search-results">
-    <!-- Les résultats AJAX apparaîtront ici -->
-</div>
-{% endblock %}
+{% else %}
+    <p>Aucun parent trouvé.</p>
+{% endfor %}

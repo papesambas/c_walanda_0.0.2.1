@@ -25,108 +25,96 @@ class PeresRepository extends ServiceEntityRepository
      * @return Peres[] Les résultats de la recherche.
      */
 
-    public function findBySearchData(SearchData $searchData)
-    {
-        $queryBuilder = $this->createQueryBuilder('p')
-            ->select('p', 'pr', 't1', 't2', 'n')
-            ->leftJoin('p.profession', 'pr')
-            ->leftJoin('p.telephone1', 't1')
-            ->leftJoin('p.telephone2', 't2')
-            ->leftJoin('p.nina', 'n');
-
-        // Recherche sur le champ "q"
-        if (!empty($searchData->q)) {
-            $queryBuilder
-                ->andWhere('p.fullname LIKE :q')
-                ->setParameter('q', '%' . $searchData->q . '%');
-        }
-
-        // Filtre par profession
-        if (!empty($searchData->professions)) {
-            $queryBuilder
-                ->andWhere('p.profession IN (:professions)')
-                ->setParameter('professions', $searchData->professions);
-        }
-
-        // Recherche par téléphone
-        if (!empty($searchData->telephone)) {
-            $normalizedTelephone = preg_replace('/\D/', '', $searchData->telephone);
-
-            $queryBuilder
-                ->andWhere('t1.numero = :telephone')
-                ->orWhere('t2.numero = :telephone')
-                ->setParameter('telephone', $normalizedTelephone);
-        }
-
-        // Recherche par NINA
-        if (!empty($searchData->nina)) {
-            $queryBuilder
-                ->andWhere('n.designation = :nina')
-                ->setParameter('nina', $searchData->nina);
-        }
-
-        return $queryBuilder->getQuery()->getResult();
-    }
-
-    /**
-     * Recherche des entités Peres en fonction des critères de SearchParentData.
-     *
-     * @param SearchParentData $searchParentData Les critères de recherche.
-     * @return Peres[] Les résultats de la recherche.
-     */
-    public function findBySearchParentData(SearchParentData $searchParentData)
-    {
-        if (
-            $searchParentData === null ||
-            (empty($searchParentData->telephonePere) && empty($searchParentData->ninaPere) && empty($searchParentData->telephoneMere) && empty($searchParentData->ninaMere))
-        ) {
-            return [];
-        }
-
-        $queryBuilder = $this->createQueryBuilder('p')
-            ->select('p', 't1', 't2', 'n')
-            ->leftJoin('p.telephone1', 't1')
-            ->leftJoin('p.telephone2', 't2')
-            ->leftJoin('p.nina', 'n');
-
-        // Recherche par téléphone (Père)
-        if (!empty($searchParentData->telephonePere)) {
-            $normalizedTelephone = preg_replace('/\D/', '', $searchParentData->telephonePere);
-
-            $queryBuilder
-                ->andWhere('t1.numero = :telephonePere')
-                ->orWhere('t2.numero = :telephonePere')
-                ->setParameter('telephonePere', $normalizedTelephone);
-        }
-
-        // Recherche par NINA (Père)
-        if (!empty($searchParentData->ninaPere)) {
-            $queryBuilder
-                ->andWhere('n.designation = :ninaPere')
-                ->setParameter('ninaPere', $searchParentData->ninaPere);
-        }
-
-        // Recherche par téléphone (Mère)
-        if (!empty($searchParentData->telephoneMere)) {
-            $normalizedTelephone = preg_replace('/\D/', '', $searchParentData->telephoneMere);
-
-            $queryBuilder
-                ->andWhere('t1.numero = :telephoneMere')
-                ->orWhere('t2.numero = :telephoneMere')
-                ->setParameter('telephoneMere', $normalizedTelephone);
-        }
-
-        // Recherche par NINA (Mère)
-        if (!empty($searchParentData->ninaMere)) {
-            $queryBuilder
-                ->andWhere('n.designation = :ninaMere')
-                ->setParameter('ninaMere', $searchParentData->ninaMere);
-        }
-
-        return $queryBuilder->getQuery()->getResult();
-    }
-
-    //    /**
+     public function findBySearchData(SearchParentData $searchParentData)
+     {
+         $queryBuilder = $this->createQueryBuilder('parent')
+             ->leftJoin('parent.pere', 'p') // Jointure avec le père
+             ->leftJoin('parent.mere', 'm') // Jointure avec la mère
+             ->leftJoin('p.telephone1', 't1') // Jointure avec le téléphone du père
+             ->leftJoin('p.telephone2', 't2') // Jointure avec le téléphone du père
+             ->leftJoin('p.nina', 'pn') // Jointure avec le NINA du père
+             ->leftJoin('m.telephone1', 'mt1') // Jointure avec le téléphone de la mère
+             ->leftJoin('m.telephone2', 'mt2') // Jointure avec le téléphone de la mère
+             ->leftJoin('m.nina', 'mn') // Jointure avec le NINA de la mère
+             ->addSelect('t1', 't2', 'pn', 'mt1', 'mt2', 'mn'); // Sélection des téléphones et NINA
+     
+         // Recherche par nom complet
+         if (!empty($searchParentData->q)) {
+             $queryBuilder
+                 ->andWhere('parent.fullname LIKE :q')
+                 ->setParameter('q', '%' . $searchParentData->q . '%');
+         }
+     
+         // Recherche par téléphone du père
+         if (!empty($searchParentData->telephonePere)) {
+             $normalizedTelephone = preg_replace('/\D/', '', $searchParentData->telephonePere);
+             $queryBuilder
+                 ->andWhere('t1.numero LIKE :telephonePere OR t2.numero LIKE :telephonePere')
+                 ->setParameter('telephonePere', '%' . $normalizedTelephone . '%');
+         }
+     
+         // Recherche par NINA du père
+         if (!empty($searchParentData->ninaPere)) {
+             $queryBuilder
+                 ->andWhere('pn.designation LIKE :ninaPere')
+                 ->setParameter('ninaPere', '%' . $searchParentData->ninaPere . '%');
+         }
+     
+         // Recherche par téléphone de la mère
+         if (!empty($searchParentData->telephoneMere)) {
+             $normalizedTelephone = preg_replace('/\D/', '', $searchParentData->telephoneMere);
+             $queryBuilder
+                 ->andWhere('mt1.numero LIKE :telephoneMere OR mt2.numero LIKE :telephoneMere')
+                 ->setParameter('telephoneMere', '%' . $normalizedTelephone . '%');
+         }
+     
+         // Recherche par NINA de la mère
+         if (!empty($searchParentData->ninaMere)) {
+             $queryBuilder
+                 ->andWhere('mn.designation LIKE :ninaMere')
+                 ->setParameter('ninaMere', '%' . $searchParentData->ninaMere . '%');
+         }
+     
+         return $queryBuilder->getQuery()->getResult();
+     }
+     
+ 
+ 
+     public function findBySearchParentData(SearchParentData $searchParentData)
+     {
+         // Si SearchParentData est null ou que ses propriétés sont vides, retourner une liste vide
+         if (
+             $searchParentData === null ||
+             (empty($searchParentData->telephonePere) && empty($searchParentData->ninaPere))
+         ) {
+             return [];
+         }
+         $queryBuilder = $this->createQueryBuilder('p')
+             ->select('p', 't1', 't2', 'n') // Sélection explicite pour éviter les proxys
+             ->leftJoin('p.telephone1', 't1') // Jointure avec téléphone
+             ->leftJoin('p.telephone2', 't2') // Jointure avec téléphone
+             ->leftJoin('p.nina', 'n'); // Jointure avec nina
+ 
+         // Recherche par téléphone
+         if (!empty($searchParentData->telephonePere)) {
+             // Normalisation du numéro (suppression des caractères non numériques)
+             $normalizedTelephone = preg_replace('/\D/', '', $searchParentData->telephonePere);
+ 
+             $queryBuilder
+             ->andWhere('t1.numero LIKE :telephone OR t2.numero LIKE :telephone')
+                 ->setParameter('telephone', $searchParentData->telephonePere);
+         }
+ 
+         // Recherche par NINA
+         if (!empty($searchParentData->ninaPere)) {
+             $queryBuilder
+                 ->andWhere('n.designation = :nina')
+                 ->setParameter('nina', $searchParentData->ninaPere);
+         }
+ 
+         return $queryBuilder->getQuery()->getResult();
+     }
+     //    /**
     //     * @return Peres[] Returns an array of Peres objects
     //     */
     //    public function findByExampleField($value): array

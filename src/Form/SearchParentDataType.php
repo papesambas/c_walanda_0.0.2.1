@@ -13,6 +13,25 @@ class SearchParentDataType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            // Champ de recherche générale pour le père (q)
+            ->add('qpere', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Nom, prénom...',
+                ],
+            ])
+
+            // Champ de recherche générale pour le père (q)
+            ->add('qmere', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Nom, prénom...',
+                ],
+            ])
+
+
             // Champ pour le numéro de téléphone (telephone)
             ->add('telephonePere', TextType::class, [
                 'label' => false,
@@ -45,7 +64,7 @@ class SearchParentDataType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Numéro d\'identification nationale...',
                 ],
-            ])            ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -24,147 +24,148 @@ class PeresType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', EntityType::class, [
-                'label' => 'Nom de famille',
-                'class' => Noms::class,
-                'placeholder' => 'Sélectionnez le nom du père',
-                'choice_label' => 'designation',
-                'query_builder' => fn(EntityRepository $er) => $er->createQueryBuilder('n')
-                    ->where('n.designation IS NOT NULL')
-                    ->andWhere('n.designation != :empty')
-                    ->setParameter('empty', '')
-                    ->orderBy('n.designation', 'ASC'),
-                'attr' => [
-                    'class' => 'select-nomfamille',
-                    'data-autocomplete' => 'true',
-                    'autocomplete' => 'family-name'
-                ],
-                'constraints' => [new NotBlank(['message' => 'Le nom de famille est obligatoire'])],
-                'error_bubbling' => false,
-                'required' => true,
-                'help' => 'Nom officiel tel que sur l\'extrait de naissance'
-            ])
-            ->add('prenom', EntityType::class, [
-                'class' => Prenoms::class,
-                'label' => 'Prénom',
-                'placeholder' => 'Sélectionnez le prénom du père',
-                'choice_label' => 'designation',
-                'query_builder' => fn(EntityRepository $er) => $er->createQueryBuilder('p')
-                    ->where('p.designation IS NOT NULL')
-                    ->andWhere('p.designation != :empty')
-                    ->setParameter('empty', '')
-                    ->orderBy('p.designation', 'ASC'),
-                'attr' => [
-                    'class' => 'select-prenom',
-                    'data-autocomplete' => 'true',
-                    'autocomplete' => 'prenom'
-                ],
-                'constraints' => [new NotBlank(['message' => 'Le prénom de famille est obligatoire'])],
-                'error_bubbling' => false,
-                'required' => true,
-                'help' => 'Prénom officiel tel que sur l\'extrait de naissance'
-            ])
-            ->add('profession', EntityType::class, [
-                'class' => Professions::class,
-                'label' => 'Profession',
-                'placeholder' => 'Sélectionnez la profession du père',
-                'choice_label' => 'designation',
-                'query_builder' => fn(EntityRepository $er) => $er->createQueryBuilder('p')
-                    ->where('p.designation IS NOT NULL')
-                    ->andWhere('p.designation != :empty')
-                    ->setParameter('empty', '')
-                    ->orderBy('p.designation', 'ASC'),
-                'attr' => [
-                    'class' => 'select-profession',
-                    'data-autocomplete' => 'true',
-                    'autocomplete' => 'profession'
-                ],
-                'constraints' => [new NotBlank(['message' => 'La profession est obligatoire'])],
-                'error_bubbling' => false,
-                'required' => true,
-                'help' => 'Profession officielle telle que sur l\'extrait de naissance'
-            ])
-            ->add('nina', EntityType::class, [
-                'class' => Ninas::class,
-                'label' => 'Prénom',
-                'placeholder' => 'Sélectionnez le # nina du père',
-                'choice_label' => 'designation',
-                'query_builder' => fn(EntityRepository $er) => $er->createQueryBuilder('n')
-                    ->where('n.designation IS NOT NULL')
-                    ->andWhere('n.designation != :empty')
-                    ->setParameter('empty', '')
-                    ->orderBy('n.designation', 'ASC'),
-                'attr' => [
-                    'class' => 'select-nina',
-                    'data-autocomplete' => 'true',
-                    'autocomplete' => 'nina'
-                ],
-                'constraints' => [
-                    new Regex([
-                        'pattern' => "/^[A-Za-z0-9]+ [A-Za-z]$/",
-                        'message' => 'numéro non conforme.',
-                    ]),
-                ],
+        ->add('nom', EntityType::class, [
+            'label' => 'Nom de famille',
+            'class' => Noms::class,
+            'placeholder' => 'Sélectionnez le nom de la père',
+            'choice_label' => 'designation',
+            'query_builder' => fn(EntityRepository $er) => $er->createQueryBuilder('n')
+                ->where('n.designation IS NOT NULL')
+                ->andWhere('n.designation != :empty')
+                ->setParameter('empty', '')
+                ->orderBy('n.designation', 'ASC'),
+            'attr' => [
+                'class' => 'select-nomfamille',
+                'data-autocomplete' => 'true',
+                'autocomplete' => 'family-name'
+            ],
+            'constraints' => [new NotBlank(['message' => 'Le nom de famille est obligatoire'])],
+            'error_bubbling' => false,
+            'required' => true,
+            'help' => 'Nom officiel tel que sur l\'extrait de naissance'
+        ])
+        ->add('prenom', EntityType::class, [
+            'class' => Prenoms::class,
+            'label' => 'Prénom',
+            'placeholder' => 'Sélectionnez le prénom de la père',
+            'choice_label' => 'designation',
+            'query_builder' => fn(EntityRepository $er) => $er->createQueryBuilder('p')
+                ->where('p.designation IS NOT NULL')
+                ->andWhere('p.designation != :empty')
+                ->setParameter('empty', '')
+                ->orderBy('p.designation', 'ASC'),
+            'attr' => [
+                'class' => 'select-prenom',
+                'data-autocomplete' => 'true',
+                'autocomplete' => 'prenom'
+            ],
+            'constraints' => [new NotBlank(['message' => 'Le prénom de famille est obligatoire'])],
+            'error_bubbling' => false,
+            'required' => true,
+            'help' => 'Prénom officiel tel que sur l\'extrait de naissance'
+        ])
+        ->add('profession', EntityType::class, [
+            'class' => Professions::class,
+            'label' => 'Profession',
+            'placeholder' => 'Sélectionnez la profession de la père',
+            'choice_label' => 'designation',
+            'query_builder' => fn(EntityRepository $er) => $er->createQueryBuilder('p')
+                ->where('p.designation IS NOT NULL')
+                ->andWhere('p.designation != :empty')
+                ->setParameter('empty', '')
+                ->orderBy('p.designation', 'ASC'),
+            'attr' => [
+                'class' => 'select-profession',
+                'data-autocomplete' => 'true',
+                'autocomplete' => 'profession'
+            ],
+            'constraints' => [new NotBlank(['message' => 'La profession est obligatoire'])],
+            'error_bubbling' => false,
+            'required' => true,
+            'help' => 'Profession officielle telle que sur l\'extrait de naissance'
+        ])
+        ->add('nina', EntityType::class, [
+            'class' => Ninas::class,
+            'label' => 'Prénom',
+            'placeholder' => 'Sélectionnez le # nina de la père',
+            'choice_label' => 'designation',
+            'query_builder' => fn(EntityRepository $er) => $er->createQueryBuilder('n')
+                ->where('n.designation IS NOT NULL')
+                ->andWhere('n.designation != :empty')
+                ->setParameter('empty', '')
+                ->orderBy('n.designation', 'ASC'),
+            'attr' => [
+                'class' => 'select-nina',
+                'data-autocomplete' => 'true',
+                'autocomplete' => 'nina'
+            ],
+            'constraints' => [
+                new Regex([
+                    'pattern' => "/^[A-Za-z0-9]+ [A-Za-z]$/",
+                    'message' => 'numéro non conforme.',
+                ]),
+            ],
+            'error_bubbling' => false,
+            'required' => false,
+            'help' => 'le numéro Nina si disponible'
+        ])
+        ->add('telephone1', EntityType::class, [
+            'class' => Telephones1::class,
+            'label' => 'Téléphone',
+            'placeholder' => 'Sélectionnez le # de téléphone de la père',
+            'choice_label' => 'numero',
+            'query_builder' => fn(EntityRepository $er) => $er->createQueryBuilder('t')
+                ->where('t.numero IS NOT NULL')
+                ->andWhere('t.numero != :empty')
+                ->setParameter('empty', '')
+                ->orderBy('t.numero', 'ASC'),
+            'attr' => [
+                'class' => 'select-telephone',
+                'data-autocomplete' => 'true',
+                'autocomplete' => 'telephone'
+            ],
+            'constraints' => [
+                new NotBlank(['message' => 'Le numéro de téléphone est obligatoire']),
+                new Regex([
+                    'pattern' => '/^\+\d{3} \d{2} \d{2} \d{2} \d{2}$/',
+                    'message' => 'Le numéro de téléphone doit être au format +xxx xx xx xx xx.',
+                ]),
+            ],
+            'error_bubbling' => false,
+            'required' => true,
+            'help' => 'Le numéro officiel de la père'
+        ])
+        ->add('telephone2', EntityType::class, [
+            'class' => Telephones2::class,
+            'label' => 'Téléphone',
+            'placeholder' => 'Sélectionnez le # de téléphone de la père',
+            'choice_label' => 'numero',
+            'query_builder' => fn(EntityRepository $er) => $er->createQueryBuilder('t')
+                ->where('t.numero IS NOT NULL')
+                ->andWhere('t.numero != :empty')
+                ->setParameter('empty', '')
+                ->orderBy('t.numero', 'ASC'),
+            'attr' => [
+                'class' => 'select-telephone',
+                'data-autocomplete' => 'true',
+                'autocomplete' => 'telephone'
+            ],
+            'constraints' => [
+                new NotBlank(['message' => 'Le numéro de téléphone est obligatoire']),
+                new Regex([
+                    'pattern' => '/^\+\d{3} \d{2} \d{2} \d{2} \d{2}$/',
+                    'message' => 'Le numéro de téléphone doit être au format +xxx xx xx xx xx.',
+                ]),
+            ],
+            'error_bubbling' => false,
+            'required' => false,
+            'help' => 'Le numéro officiel de la père'
+        ])
 
-                'error_bubbling' => false,
-                'required' => false,
-                'help' => 'le numéro Nina si disponible'
-            ])
-            ->add('telephone1', EntityType::class, [
-                'class' => Telephones1::class,
-                'label' => 'Téléphone',
-                'placeholder' => 'Sélectionnez le # de téléphone du père',
-                'choice_label' => 'numero',
-                'query_builder' => fn(EntityRepository $er) => $er->createQueryBuilder('t')
-                    ->where('t.designation IS NOT NULL')
-                    ->andWhere('t.designation != :empty')
-                    ->setParameter('empty', '')
-                    ->orderBy('t.designation', 'ASC'),
-                'attr' => [
-                    'class' => 'select-telephone',
-                    'data-autocomplete' => 'true',
-                    'autocomplete' => 'telephone'
-                ],
-                'constraints' => [
-                    new NotBlank(['message' => 'Le numéro de téléphone est obligatoire']),
-                    new Regex([
-                        'pattern' => '/^\+\d{3} \d{2} \d{2} \d{2} \d{2}$/',
-                        'message' => 'Le numéro de téléphone doit être au format +xxx xx xx xx xx.',
-                    ]),
-                ],
-                'error_bubbling' => false,
-                'required' => true,
-                'help' => 'Le numéro officiel du père'
-            ])
-            ->add('telephone2', EntityType::class, [
-                'class' => Telephones2::class,
-                'label' => 'Téléphone',
-                'placeholder' => 'Sélectionnez le # de téléphone du père',
-                'choice_label' => 'numero',
-                'query_builder' => fn(EntityRepository $er) => $er->createQueryBuilder('t')
-                    ->where('t.designation IS NOT NULL')
-                    ->andWhere('t.designation != :empty')
-                    ->setParameter('empty', '')
-                    ->orderBy('t.designation', 'ASC'),
-                'attr' => [
-                    'class' => 'select-telephone',
-                    'data-autocomplete' => 'true',
-                    'autocomplete' => 'telephone'
-                ],
-                'constraints' => [
-                    new NotBlank(['message' => 'Le numéro de téléphone est obligatoire']),
-                    new Regex([
-                        'pattern' => '/^\+\d{3} \d{2} \d{2} \d{2} \d{2}$/',
-                        'message' => 'Le numéro de téléphone doit être au format +xxx xx xx xx xx.',
-                    ]),
-                ],
-                'error_bubbling' => false,
-                'required' => true,
-                'help' => 'Le numéro officiel du père'
-            ])
-    
-        ;
-    }
+
+    ;
+}
+
     
     public function configureOptions(OptionsResolver $resolver): void
     {

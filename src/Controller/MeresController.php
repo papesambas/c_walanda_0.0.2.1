@@ -6,7 +6,9 @@ use App\Entity\Meres;
 use App\Form\MeresType;
 use App\Data\SearchData;
 use App\Form\SearchDataType;
+use App\Repository\ElevesRepository;
 use App\Repository\MeresRepository;
+use App\Repository\ParentsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,15 +61,17 @@ final class MeresController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_meres_show', methods: ['GET'])]
-    public function show(Meres $mere): Response
+    #[Route('/{slug}', name: 'app_meres_show', methods: ['GET'])]
+    public function show(Meres $mere, ElevesRepository $elevesRepository): Response
     {
+        $eleves = $elevesRepository->findByMere($mere);
         return $this->render('meres/show.html.twig', [
             'mere' => $mere,
+            'eleves' => $eleves,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_meres_edit', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/edit', name: 'app_meres_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Meres $mere, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(MeresType::class, $mere);
@@ -85,7 +89,7 @@ final class MeresController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_meres_delete', methods: ['POST'])]
+    #[Route('/{slug}', name: 'app_meres_delete', methods: ['POST'])]
     public function delete(Request $request, Meres $mere, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$mere->getId(), $request->getPayload()->getString('_token'))) {

@@ -4,8 +4,10 @@
 
 {% block body %}
 <div class="container-fluid mt-5">
-    <h1 class="mb-4">Liste des Pères</h1>
-    <div class="row">
+    <div class="d-flex justify-content-center">
+        <h3 class="mb-4 fw-bold fst-italic">Liste des Pères</h3>
+    </div>
+        <div class="row">
         <!-- Filtre -->
         <div class="col-md-3">
             <div class="card w-100 p-1">
@@ -21,14 +23,15 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover table-sm">
                             <thead class="table-dark">
                                 <tr>
                                     <th>Id</th>
                                     <th>Nom</th>
                                     <th>Prénom</th>
                                     <th>Profession</th>
-                                    <th>Téléphone</th>
+                                    <th>téléphone</th>
+                                    <th>téléphone</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -39,10 +42,11 @@
                                     <td>{{ pere.nom }}</td>
                                     <td>{{ pere.prenom }}</td>
                                     <td>{{ pere.profession ? pere.profession : 'Non défini' }}</td>
-                                    <td>{{ pere.telephone }}</td>
+                                    <td>{{ pere.telephone1 }}</td>
+                                    <td>{{ pere.telephone2 }}</td>
                                     <td>
-                                        <a href="{{ path('app_peres_show', {'id': pere.id}) }}" class="btn btn-info btn-sm">Voir</a>
-                                        <a href="{{ path('app_peres_edit', {'id': pere.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                                        <a href="{{ path('app_peres_show', {'slug': pere.slug}) }}" class="btn btn-info btn-sm">Voir</a>
+                                        <a href="{{ path('app_peres_edit', {'slug': pere.slug}) }}" class="btn btn-warning btn-sm">Modifier</a>
                                     </td>
                                 </tr>
                                 {% else %}
@@ -61,8 +65,9 @@
     <!-- Bouton Ajouter -->
     <div class="text-end mt-4">
         <a href="{{ path('app_peres_new') }}" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> Ajouter une nouvelle Père
+            <i class="bi bi-plus-circle"></i> Ajouter une nouvelle Mère
         </a>
     </div>
 </div>
+
 {% endblock %}

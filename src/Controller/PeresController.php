@@ -6,6 +6,7 @@ use App\Entity\Peres;
 use App\Form\PeresType;
 use App\Data\SearchData;
 use App\Form\SearchDataType;
+use App\Repository\ElevesRepository;
 use App\Repository\PeresRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,15 +59,17 @@ final class PeresController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_peres_show', methods: ['GET'])]
-    public function show(Peres $pere): Response
+    #[Route('/{slug}', name: 'app_peres_show', methods: ['GET'])]
+    public function show(Peres $pere, ElevesRepository $elevesRepository): Response
     {
+        $eleves = $elevesRepository->findByPere($pere);
         return $this->render('peres/show.html.twig', [
             'pere' => $pere,
+            'eleves' => $eleves,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_peres_edit', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/edit', name: 'app_peres_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Peres $pere, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PeresType::class, $pere);
@@ -84,7 +87,7 @@ final class PeresController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_peres_delete', methods: ['POST'])]
+    #[Route('/{slug}', name: 'app_peres_delete', methods: ['POST'])]
     public function delete(Request $request, Peres $pere, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$pere->getId(), $request->getPayload()->getString('_token'))) {
